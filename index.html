@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Create Text File</title>
+  <title>Create JPG from Form</title>
 </head>
 <body>
 
@@ -17,32 +17,49 @@
   <label>Address:</label><br>
   <textarea id="address" rows="3"></textarea><br><br>
 
-  <button onclick="generateTextFile()">Create Text File</button>
+  <button onclick="createJPG()">Create JPG</button>
+
+  <canvas id="canvas" width="800" height="600" style="display:none;"></canvas>
 
   <script>
-    function generateTextFile() {
+    function createJPG() {
       const name = document.getElementById("name").value;
       const birthday = document.getElementById("birthday").value;
       const address = document.getElementById("address").value;
 
-      const content =
-        "Name: " + name + "\n" +
-        "Birthday: " + birthday + "\n" +
-        "Address:\n" + address + "\n";
+      const canvas = document.getElementById("canvas");
+      const ctx = canvas.getContext("2d");
 
-      const blob = new Blob([content], { type: "text/plain" });
-      const url = URL.createObjectURL(blob);
+      // Background
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+      // Text
+      ctx.fillStyle = "#000000";
+      ctx.font = "30px Arial";
+      ctx.fillText("Name: " + name, 50, 100);
+      ctx.fillText("Birthday: " + birthday, 50, 150);
+
+      ctx.fillText("Address:", 50, 200);
+      const lines = address.split("\n");
+      let y = 250;
+      lines.forEach(line => {
+        ctx.fillText(line, 50, y);
+        y += 40;
+      });
+
+      // Convert to JPG
+      const jpgUrl = canvas.toDataURL("image/jpeg");
+
+      // Download JPG
       const link = document.createElement("a");
-      link.href = url;
-      link.download = "info.txt";
+      link.href = jpgUrl;
+      link.download = "info.jpg";
       link.click();
 
-      URL.revokeObjectURL(url);
+      alert("JPG created! Save it to your gallery, then send it in Messenger.");
     }
   </script>
-
-  <p>After downloading the file, open Facebook Messenger and send it as an attachment.</p>
 
 </body>
 </html>
