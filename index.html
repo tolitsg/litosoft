@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Create JPG from Form</title>
+  <title>Create JPG for Messenger</title>
 </head>
 <body>
 
@@ -19,7 +19,7 @@
 
   <button onclick="createJPG()">Create JPG</button>
 
-  <canvas id="canvas" width="800" height="600" style="display:none;"></canvas>
+  <canvas id="canvas" width="900" height="600" style="display:none;"></canvas>
 
   <script>
     function createJPG() {
@@ -36,13 +36,13 @@
 
       // Text
       ctx.fillStyle = "#000000";
-      ctx.font = "30px Arial";
+      ctx.font = "36px Arial";
       ctx.fillText("Name: " + name, 50, 100);
-      ctx.fillText("Birthday: " + birthday, 50, 150);
+      ctx.fillText("Birthday: " + birthday, 50, 160);
 
-      ctx.fillText("Address:", 50, 200);
+      ctx.fillText("Address:", 50, 220);
       const lines = address.split("\n");
-      let y = 250;
+      let y = 280;
       lines.forEach(line => {
         ctx.fillText(line, 50, y);
         y += 40;
@@ -57,7 +57,16 @@
       link.download = "info.jpg";
       link.click();
 
-      alert("JPG created! Save it to your gallery, then send it in Messenger.");
+      // Shareable link (opens in browser)
+      const shareLink = window.location.href;
+
+      alert(
+        "JPG created!\n\n" +
+        "1. Save the image to your gallery.\n" +
+        "2. Open Messenger and send the JPG.\n" +
+        "3. If you share this page link, it will open directly in the browser:\n\n" +
+        shareLink
+      );
     }
   </script>
 
