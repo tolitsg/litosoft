@@ -1,67 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Boatload Crossword (Auto Zoom)</title>
+  <meta charset="UTF-8">
+  <title>Auto Zoom Crossword</title>
 
-    <style>
-        body {
-            margin: 0;
-            background: #222;
-            overflow: hidden;
-        }
+  <style>
+    /* Base container that will be scaled */
+    #crossword-container {
+      width: 900px;      /* Base width of the crossword area */
+      transform-origin: top left;
+      background: #f7f7f7;
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
 
-        /* Container that will be scaled */
-        #zoom-container {
-            width: 1500px;   /* base width */
-            height: 700px;  /* base height */
-            transform-origin: top left;
-            background: #fff;
-            padding: 10px;
-            box-sizing: border-box;
-        }
-    </style>
+    body {
+      margin: 0;
+      background: #222;
+      overflow-x: hidden;
+    }
+  </style>
 </head>
+
 <body>
 
-    <div id="zoom-container">
-
-        <script type="text/javascript">
-            boatload_puzzles_format = 'Landscape';
-        </script>
-
-        <p>
-            Loading 
-            <a href="https://www.boatloadpuzzles.com/playcrossword">
-                crossword puzzle
-            </a>. One moment please.
-        </p>
-
-        <script type="text/javascript" src="//www.boatloadpuzzles.com/Crossword.js"></script>
-
-    </div>
-
-    <script>
-        function autoZoom() {
-            const container = document.getElementById('zoom-container');
-
-            const baseWidth = 1500;
-            const baseHeight = 700;
-
-            const winW = window.innerWidth;
-            const winH = window.innerHeight;
-
-            const scaleX = winW / baseWidth;
-            const scaleY = winH / baseHeight;
-
-            const scale = Math.min(scaleX, scaleY);
-
-            container.style.transform = `scale(${scale})`;
-        }
-
-        window.addEventListener('load', autoZoom);
-        window.addEventListener('resize', autoZoom);
+  <div id="crossword-container">
+    <script type="text/javascript">
+      boatload_puzzles_format = 'Landscape';
     </script>
+
+    <p>
+      Loading <a href="https://www.boatloadpuzzles.com/playcrossword">crossword puzzle</a>.
+      One moment please.
+    </p>
+
+    <script type="text/javascript"
+      src="//www.boatloadpuzzles.com/Crossword.js">
+    </script>
+  </div>
+
+  <script>
+    function autoZoom() {
+      const container = document.getElementById('crossword-container');
+      const baseWidth = 900; // same as CSS width
+      const windowWidth = window.innerWidth;
+
+      const scale = windowWidth / baseWidth;
+      container.style.transform = `scale(${scale})`;
+    }
+
+    window.addEventListener('load', autoZoom);
+    window.addEventListener('resize', autoZoom);
+  </script>
 
 </body>
 </html>
