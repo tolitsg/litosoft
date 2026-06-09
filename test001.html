@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Boatload Crossword (Auto Zoom)</title>
+
+    <style>
+        body {
+            margin: 0;
+            background: #222;
+            overflow: hidden;
+        }
+
+        /* Container that will be scaled */
+        #zoom-container {
+            width: 900px;   /* base width */
+            height: 700px;  /* base height */
+            transform-origin: top left;
+            background: #fff;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="zoom-container">
+
+        <script type="text/javascript">
+            boatload_puzzles_format = 'Landscape';
+        </script>
+
+        <p>
+            Loading 
+            <a href="https://www.boatloadpuzzles.com/playcrossword">
+                crossword puzzle
+            </a>. One moment please.
+        </p>
+
+        <script type="text/javascript" src="//www.boatloadpuzzles.com/Crossword.js"></script>
+
+    </div>
+
+    <script>
+        function autoZoom() {
+            const container = document.getElementById('zoom-container');
+
+            const baseWidth = 900;
+            const baseHeight = 700;
+
+            const winW = window.innerWidth;
+            const winH = window.innerHeight;
+
+            const scaleX = winW / baseWidth;
+            const scaleY = winH / baseHeight;
+
+            const scale = Math.min(scaleX, scaleY);
+
+            container.style.transform = `scale(${scale})`;
+        }
+
+        window.addEventListener('load', autoZoom);
+        window.addEventListener('resize', autoZoom);
+    </script>
+
+</body>
+</html>
